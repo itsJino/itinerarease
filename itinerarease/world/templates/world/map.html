@@ -29,7 +29,7 @@
 
         marker = L.marker([latitude, longitude]).addTo(map);
         circle = L.circle([latitude, longitude], { radius: accuracy }).addTo(map);
-        map.setView([latitude, longitude], 13);  // Zoom into the user's location
+        map.setView([latitude, longitude], 15);  // Zoom into the user's location
     }
 
     function updateLocation() {

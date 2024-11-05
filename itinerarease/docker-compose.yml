@@ -30,8 +30,8 @@ services:
         #volumes:
         #  - my_first_spatialdb_data:/var/lib/postgresql/data
 
-    awm_django_app:
-        image: geodjango_tutorial_image
+    itinerarease:
+        image: itinerarease_image
         environment:
             - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
         ports:

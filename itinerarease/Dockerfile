@@ -1,9 +1,8 @@
 FROM continuumio/miniconda3
 LABEL maintainer="joshuaflores"
 
-
 ENV PYTHONBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=geodjango_tutorial.settings
+ENV DJANGO_SETTINGS_MODULE=itinerarease.settings
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -29,7 +28,6 @@ ENV PYTHONPATH="/app"
 COPY manage.py .
 
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "awm_geo"]
-
 
 # EXPOSE the port that container will operate on 
 EXPOSE 8001
