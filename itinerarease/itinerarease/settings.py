@@ -28,7 +28,7 @@ with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not DEPLOY_SECURE
+DEBUG = True
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'world.apps.WorldConfig'
+    'world.apps.WorldConfig',
+    'pubs.apps.PubsConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,79 @@
+/* Add these to your custom CSS file or inside a <style> tag */
+.marker-cluster-small {
+    background-color: rgba(0, 204, 0, 0.6);
+}
+
+.marker-cluster-medium {
+    background-color: rgba(255, 165, 0, 0.6);
+}
+
+.marker-cluster-large {
+    background-color: rgba(255, 0, 0, 0.6);
+}
+
+.marker-cluster {
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #343a40;  /* Dark background for the navbar */
+    padding: 1rem;              /* Padding around the navbar */
+}
+
+.navbar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: #e9ecef;             /* Slightly lighter color on hover */
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #ffffff;
+    margin-right: 1rem;         /* Space between links */
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #e9ecef;
+}
+
+.navbar-nav .nav-item .nav-link.active {
+    color: #e9ecef;             /* Active link color */
+    font-weight: bold;
+}
+
+/* Adjust navbar padding and spacing for mobile */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem;         /* Smaller padding on mobile */
+    }
+    .navbar-nav .nav-item .nav-link {
+        margin-right: 0.5rem;    /* Smaller spacing between links */
+    }
+}
+
+/* User-specific greeting text */
+.navbar-nav .nav-item .nav-link.greeting {
+    color: #f8f9fa;              /* Slightly different color */
+    font-style: italic;
+}
+
+/* Dropdown styling for when the menu collapses */
+.navbar-collapse {
+    justify-content: flex-end;   /* Align links to the right */
+}

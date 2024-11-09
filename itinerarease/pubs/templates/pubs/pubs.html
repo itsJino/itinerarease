@@ -1,0 +1,215 @@
+{% extends 'pubs/index.html' %}
+
+{% block title %}Pubs Map{% endblock %}
+
+{% block content %}
+<h2>Pubs Map</h2>
+<input type="text" id="pubSearch" placeholder="Search for a pub by name" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+<div id="map" style="height: 600px;"></div>
+<p id="distanceMessage" style="margin-top: 10px; font-size: 16px; font-weight: bold;"></p> <!-- Closest pub message -->
+{% endblock %}
+
+{% block extra_js %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css" />
+<link rel="stylesheet" href="../../static/css/styles.css">
+<script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.1/leaflet.markercluster.js"></script>
+<script>
+    var map = L.map('map').setView([53.3498, -6.2603], 10);
+
+    var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    var satelliteLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors, Tiles courtesy of Humanitarian OpenStreetMap Team'
+    });
+
+    var marker;
+    var circle;
+    var markers = L.markerClusterGroup();
+    var pubsData = [];  // Store pub data globally for search
+    var closestPubMarker; // Store the marker of the closest pub
+    var pubsDataLoaded = false; // Flag to track if pubsData is loaded
+    var userLocation = null; // Store user location to find closest pub after data loads
+
+    // Fetch pub data and initialize markers
+    fetch('{% url "pubs_data" %}')
+    .then(response => response.json())
+    .then(data => {
+        pubsData = data;
+        pubsDataLoaded = true; // Mark data as loaded
+
+        data.forEach(pub => {
+            var marker = L.marker([pub.latitude, pub.longitude])
+                .bindPopup(`<b>${pub.name}</b><br>${pub.region}`);
+            marker.pubName = pub.name.toLowerCase();  // Store name in lowercase for easy matching
+            markers.addLayer(marker);
+        });
+        map.addLayer(markers);
+
+        // If user location was set before data loaded, find closest pub now
+        if (userLocation) {
+            findClosestPub(userLocation.lat, userLocation.lng);
+        }
+    })
+    .catch(error => console.error('Fetch error:', error));
+
+    var baseLayers = {
+        "OpenStreetMap": osmLayer,
+        "Satellite": satelliteLayer
+    };
+
+    var overlayLayers = {
+        "Pub Locations": markers
+    };
+
+    // Define a custom red icon for the user marker
+    var redIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    // Haversine formula to calculate distance in km between two points
+    function getDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Radius of the Earth in kilometers
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = 
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // Distance in kilometers
+    }
+
+    // Function to find the closest pub to the user location
+    function findClosestPub(userLat, userLng) {
+        if (!pubsDataLoaded) return; // Exit if data is not yet loaded
+
+        let nearestPub = null;
+        let minDistance = Infinity;
+
+        pubsData.forEach(pub => {
+            const distance = getDistance(userLat, userLng, pub.latitude, pub.longitude);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestPub = pub;
+            }
+        });
+
+        if (nearestPub) {
+            // Find the marker for the closest pub
+            markers.eachLayer(marker => {
+                if (marker.getLatLng().lat === nearestPub.latitude && marker.getLatLng().lng === nearestPub.longitude) {
+                    closestPubMarker = marker;
+                }
+            });
+
+            // Update the UI with the closest pub's name, making it clickable
+            document.getElementById('distanceMessage').innerHTML = 
+                `The nearest pub is <span id="closestPubLink" style="color: blue; cursor: pointer;">${nearestPub.name}</span>, located ${minDistance.toFixed(2)} km away.`;
+
+            // Add click event listener to zoom to the closest pub on map
+            document.getElementById('closestPubLink').addEventListener('click', function() {
+                if (closestPubMarker) {
+                    map.setView(closestPubMarker.getLatLng(), Math.max(map.getZoom(), 16));
+                    closestPubMarker.openPopup();  // Open popup of the closest pub
+                }
+            });
+        } else {
+            document.getElementById('distanceMessage').innerText = "No pubs found nearby.";
+        }
+    }
+
+    function updateMap(latitude, longitude, accuracy) {
+        if (marker) {
+            map.removeLayer(marker);
+        }
+        if (circle) {
+            map.removeLayer(circle);
+        }
+
+        marker = L.marker([latitude, longitude], { icon: redIcon }).addTo(map);
+        circle = L.circle([latitude, longitude], { radius: accuracy }).addTo(map);
+        map.setView([latitude, longitude], 15);  // Zoom into the user's location
+
+        // Store user location and find closest pub if data is loaded
+        userLocation = { lat: latitude, lng: longitude };
+        if (pubsDataLoaded) {
+            findClosestPub(latitude, longitude);
+        }
+    }
+
+    function updateLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var accuracy = position.coords.accuracy;
+
+                    updateMap(latitude, longitude, accuracy);
+
+                    // Send location to Django view
+                    fetch('{% url "update_location" %}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                        },
+                        body: 'latitude=' + latitude + '&longitude=' + longitude
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Location updated successfully');
+                        } else {
+                            console.error('Error updating location:', data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                    });
+                },
+                function(error) {
+                    console.error('Error getting location:', error);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }
+
+    // On page load, update the location
+    document.addEventListener('DOMContentLoaded', function() {
+        updateLocation();
+    });
+
+    L.control.layers(baseLayers, overlayLayers).addTo(map);
+
+    // Add event listener to the search input for custom pub name search
+    document.getElementById('pubSearch').addEventListener('input', function() {
+        var searchText = this.value.toLowerCase();
+        var matchedMarker = null;
+
+        markers.eachLayer(function(marker) {
+            if (marker.pubName && marker.pubName.includes(searchText)) {
+                matchedMarker = marker;  // Found a match
+            }
+        });
+
+        if (matchedMarker) {
+            // Use zoomToShowLayer to expand clusters and reveal the marker
+            markers.zoomToShowLayer(matchedMarker, function() {
+                map.setView(matchedMarker.getLatLng(), Math.max(map.getZoom(), 16));  // Zoom in enough to show marker
+                matchedMarker.openPopup();  // Open the popup for the matched marker
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -2,8 +2,6 @@ from pathlib import Path
 from django.contrib.gis.utils import LayerMapping
 from .models import WorldBorder
 
- 
-
 world_mapping = {
     'fips' : 'FIPS',
     'iso2' : 'ISO2',
@@ -19,10 +17,7 @@ world_mapping = {
     'mpoly' : 'MULTIPOLYGON',
 }
 
-
 world_shp = Path(__file__).resolve().parent / 'data' / 'TM_WORLD_BORDERS-0.3.shp'
-
- 
 
 def run(verbose=True):
 
