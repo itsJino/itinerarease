@@ -2,7 +2,7 @@
 
 This repository hosts my Advanced Web Mapping CA1 project, a web application designed for users interested in locating nearby pubs. The site combines geolocation with interactive map features to provide a seamless experience for finding pubs. Built with Django and Django Templates, the application leverages PostgreSQL with PostGIS for managing spatial data and is administered via PgAdmin 4. The map interface, powered by Leaflet.js and OpenStreetMap, includes clustering for efficient display of multiple pub locations. Users can search for pubs by name, view the distance to the nearest pub based on their location, and navigate to specific pubs by clicking on names. The entire project is containerized with Docker for easy deployment and hosted on AWS. 
 
-Access the website here: 
+Access the website here: https://itinerarease.xyz/
 
 
 ## Features
