@@ -22,6 +22,9 @@ This repository hosts my Advanced Web Mapping CA1 project, a web application des
 ### Toggle View (Satellite View)
 ![image](https://github.com/user-attachments/assets/12df2686-75a4-485b-a7be-af2a0e42a992)
 
+### Search Pub
+![image](https://github.com/user-attachments/assets/a2fdfad6-e0a1-4d32-beb3-27eb863ac04f)
+
 ### Login Page
 ![image](https://github.com/user-attachments/assets/857124e6-34a7-4348-bb2e-0f3d9df498f6)
 
