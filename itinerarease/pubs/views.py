@@ -1,12 +1,12 @@
 from django.http import JsonResponse
-from django.shortcuts import render
-from .models import PublicPlace
+from django.shortcuts import render, resolve_url, redirect
+from .models import PublicPlace, UserProfile
 from django.contrib.auth import get_user_model
 from django.contrib.gis.geos import Point
-from .models import UserProfile
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import redirect
+from .forms import SignupForm
+
 
 def pubs_data(request):
     try:
@@ -33,7 +33,7 @@ def pub_view(request):
             location = None
         return render(request, 'pubs/pubs.html', {'user': request.user, 'location': location})
     else:
-        return redirect('login')
+        return redirect(resolve_url('pub_login'))
 
 User = get_user_model()
 
@@ -54,14 +54,26 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('index')  # Redirect to the main map view
+            return redirect('pub_map')  # Redirect to the main map view
     else:
         form = AuthenticationForm()
-    return render(request, 'world/login.html', {'form': form})
+    return render(request, 'pubs/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Redirect to the login page after logout
+    return redirect(resolve_url('pub_login'))  # Redirect to the login page after logout
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return redirect('pub_login')  # Redirect to login page after signup
+    else:
+        form = SignupForm()
+    return render(request, 'pubs/signup.html', {'form': form})
 
 def update_location(request):
     if request.method == 'POST' and request.user.is_authenticated:
