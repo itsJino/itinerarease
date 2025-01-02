@@ -1,71 +1,119 @@
-# Pub Locator Map Application
 
-This repository hosts my Advanced Web Mapping CA1 project, a web application designed for users interested in locating nearby pubs. The site combines geolocation with interactive map features to provide a seamless experience for finding pubs. Built with Django and Django Templates, the application leverages PostgreSQL with PostGIS for managing spatial data and is administered via PgAdmin 4. The map interface, powered by Leaflet.js and OpenStreetMap, includes clustering for efficient display of multiple pub locations. Users can search for pubs by name, view the distance to the nearest pub based on their location, and navigate to specific pubs by clicking on names. The entire project is containerized with Docker for easy deployment and hosted on AWS. 
+# Pub Crawl Navigator
 
-Access the website here: https://itinerarease.xyz/
-
+Pub Crawl Navigator is an interactive web application designed to help users plan and enjoy their pub crawls. It provides a map-based interface where users can search for pubs, add them to their route, and track their progress during the crawl. The app includes features like user authentication, search functionality, dynamic route creation, and a progress tracker.
 
 ## Features
 
-- **Map Display with Clustering**: Pubs are displayed on an interactive map using Leaflet.js with clustering to organize markers. This enhances user experience when dealing with a large number of locations.
+### 1. **User Authentication**
+- Login and signup forms with robust error handling.
+- Displays the logged-in user's username and profile icon in the header.
+- Logout functionality to securely end user sessions.
 
-- **Search for Pubs by Name**: A search box allows users to enter a pub name, which filters and focuses on the pub's location on the map if it exists. This makes it easier to locate specific pubs.
+### 2. **Interactive Map**
+- **Map View**: Displays pubs as markers on a map using Leaflet.js with clustering for better visualization.
+- **User Location**: Automatically detects and displays the user's current location on the map.
+- **Pub Search**: Allows users to search for pubs by name, and the map dynamically zooms to the matched pub.
 
-- **User Geolocation and Nearest Pub**: When users enable geolocation, their position is marked on the map, and the application finds the closest pub to their location, displaying its distance in kilometers. Users can click on the pub’s name in the distance message to zoom in on that pub’s location.
+### 3. **Pub Selection and Route Planning**
+- Users can add pubs to their route by selecting them from the map.
+- Selected pubs are displayed in a list with unique emoji icons.
+- Clicking on a pub in the list centers the map on the pub location.
+- Users can remove pubs from the route with a simple button click.
 
-- **Layer Toggle for Map Views**: Users can switch between standard OpenStreetMap and satellite views for better map visualization.
+### 4. **Dynamic Routing**
+- Routes are created dynamically based on selected pubs and the user's current location.
+- Total route distance is calculated, and the user can track their progress.
+- Progress bar updates in real time based on the user's location relative to the route.
 
-### Pubs Page
-![image](https://github.com/user-attachments/assets/dd6deb57-17d1-42d3-bd2d-bc15abd1dfd7)
+### 5. **Clustered Markers**
+- Pub markers are grouped into clusters for better map performance.
+- Clusters expand to show individual markers when zoomed in.
 
-### Pubs in Custering
-![image](https://github.com/user-attachments/assets/3e83bc4e-8d89-462a-a066-8350d36bf205)
+### 6. **Responsive Design**
+- Fully responsive UI with a clean and intuitive design.
+- Header includes the app title centered, a logout button on the left, and the user profile on the right.
 
-### Toggle View (Satellite View)
-![image](https://github.com/user-attachments/assets/12df2686-75a4-485b-a7be-af2a0e42a992)
+### 7. **Backend Integration**
+- Fetches user details via `/user-info-api`.
+- Fetches pub data from `/pubs-data`.
+- Logout is handled via a POST request to `/logout/`.
 
-### Search Pub
-![image](https://github.com/user-attachments/assets/a2fdfad6-e0a1-4d32-beb3-27eb863ac04f)
+## Technologies Used
 
-### Login Page
-![image](https://github.com/user-attachments/assets/857124e6-34a7-4348-bb2e-0f3d9df498f6)
+### Frontend
+- **React.js**: Used for building the user interface.
+- **Leaflet.js**: For interactive map rendering.
+- **React-Leaflet**: A React wrapper for Leaflet.
+- **CSS**: For styling components with a modern and clean look.
 
-### Sing Up Page
-![image](https://github.com/user-attachments/assets/01c010c5-9700-4702-a51a-deb64000de6b)
+### Backend
+- **Django REST Framework (DRF)**: Used for authentication and serving user and pub data.
 
+### Other Tools
+- **Axios**: For handling HTTP requests.
+- **Leaflet-Routing-Machine**: For routing functionality.
+- **MarkerClusterGroup**: For clustering map markers.
 
+## File Structure
 
-## How It Works
+### Key Files
+- `src/components/PubsMap.js`: Main component for rendering the map and managing pub routes.
+- `src/services/Axios.js`: Configured Axios instance for API communication.
+- `src/styles/PubsMap.css`: Styling for the map and UI components.
+- `backend/api.py`: Django API endpoints for user and pub data.
 
-1. **Map Initialization**: The map initializes with a view of a specified region (defaulting to central Dublin) and loads pub data from the server to populate map markers.
-   
-2. **Loading Pub Data**: The pub data, including coordinates and names, is fetched from the server and used to add markers to the map. The application clusters these markers for optimized display.
-   
-3. **User Location and Distance Calculation**: On page load, the application attempts to retrieve the user's location via the browser's Geolocation API. When the location is retrieved, a custom marker is placed on the map to represent the user's position. Using the Haversine formula, the application calculates the distance from the user’s location to each pub, determining the nearest pub.
+### APIs
+1. **User Info API**:
+   - Endpoint: `/user-info-api`
+   - Returns the authenticated user's details (username, email, and ID).
 
-4. **Interactive Closest Pub Link**: The nearest pub’s name and distance appear in a message below the map. Clicking the pub name zooms the map to that pub’s location and opens its popup, providing additional details.
+2. **Pub Data API**:
+   - Endpoint: `/pubs-data`
+   - Returns a list of pubs with their names, locations, and properties.
 
-5. **Search Functionality**: Users can search for a pub by entering its name in the search box. The application finds and zooms in on matching results.
+3. **Logout API**:
+   - Endpoint: `/logout/`
+   - Handles user logout securely.
 
-## Conclusion
+## Setup Instructions
 
-The Pub Locator Map Application provides a user-friendly interface for locating nearby pubs with ease. By integrating advanced mapping techniques like geolocation, clustering, and search functionality, it enhances the experience of users looking to explore local pubs. The combination of Django, PostgreSQL with PostGIS, and Leaflet.js has proven effective in managing spatial data and delivering interactive, real-time information. Hosting the application on AWS with Docker makes it scalable and accessible to a broad audience.
+### Prerequisites
+- Node.js and npm installed.
+- Python and Django environment set up for the backend.
 
-## Future Implementations
+### Frontend
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/pub-crawl-navigator.git
+   cd pub-crawl-navigator
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-To further enhance the application, several additional features are planned for future releases:
+### Backend
+1. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Run the Django development server:
+   ```bash
+   python manage.py runserver
+   ```
 
-1. **User Accounts and Saved Favorites**: Allow users to create accounts, save favorite pubs, and access their favorite locations quickly.
-   
-2. **Review and Rating System**: Enable users to leave reviews and ratings for pubs. This would provide helpful insights to other users and increase user engagement.
+### Environment Variables
+- Configure API base URLs and authentication tokens as needed in the frontend (e.g., Axios instance) and backend settings.
 
-3. **Improved Search Filters**: Implement additional search filters (e.g., by pub type, amenities, or rating) to refine search results and help users find pubs that best match their preferences.
+## Future Enhancements
+- Add support for saving and sharing pub crawl routes.
+- Integrate user reviews and ratings for pubs.
+- Implement a leaderboard to gamify the pub crawl experience.
 
-4. **Route and Navigation Suggestions**: Integrate routing functionality to provide users with suggested routes from their current location to a chosen pub, enhancing the application's usability as a navigational tool.
-
-5. **Real-time Updates on Pub Information**: Introduce real-time updates for information such as special events, promotions, and open/closed status to keep users informed about what's happening at each pub.
-
-6. **Mobile App Integration**: Consider building a mobile application with the same functionality for more convenient, on-the-go access.
-
-These enhancements will continue to improve the Pub Locator Map Application and provide users with a comprehensive and enjoyable pub-finding experience.
-
+## License
+This project is open-source under the [MIT License](LICENSE).
