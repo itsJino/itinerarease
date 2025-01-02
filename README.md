@@ -3,6 +3,8 @@
 
 Pub Crawl Navigator is an interactive web application designed to help users plan and enjoy their pub crawls. It provides a map-based interface where users can search for pubs, add them to their route, and track their progress during the crawl. The app includes features like user authentication, search functionality, dynamic route creation, and a progress tracker.
 
+Access the web application here at: https://itinerarease.xyz/
+
 ## Features
 
 ### 1. **User Authentication**
