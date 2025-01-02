@@ -87,11 +87,12 @@ Access the web application here at: https://itinerarease.xyz/
 ### Frontend
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/pub-crawl-navigator.git
-   cd pub-crawl-navigator
+   git clone https://github.com/itsJino/itinerarease.git
+   cd itinerarease
    ```
 2. Install dependencies:
    ```bash
+   cd frontend
    npm install
    ```
 3. Start the development server:
