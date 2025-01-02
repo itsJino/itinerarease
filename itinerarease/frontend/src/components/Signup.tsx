@@ -33,7 +33,7 @@ const Signup: React.FC = () => {
             return;
         }
         try {
-            await Axios.post('https://itinerarease.xyz/api/signup/', {
+            await Axios.post('signup/', {
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,

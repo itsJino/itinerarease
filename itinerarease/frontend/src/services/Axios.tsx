@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an instance of axios with a custom configuration
 const Axios = axios.create({
-  baseURL: 'http://localhost:8001/api/', // Base URL for your API
+  baseURL: 'https://itinerarease.xyz/api/', // Base URL for your API
   timeout: 10000, // Request timeout (10 seconds)
   headers: {
     'Content-Type': 'application/json',

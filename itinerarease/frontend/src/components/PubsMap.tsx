@@ -69,7 +69,7 @@ const PubsMap: React.FC = () => {
     // Fetch pub data from the server
     const fetchPubsData = async () => {
         try {
-            const response = await Axios.get('https://itinerarease.xyz/api/pubs-data'); // Fetch pub data from API
+            const response = await Axios.get('pubs-data/'); // Fetch pub data from API
             setPubsData(response.data); // Save data to state
         } catch (error) {
             console.error('Error fetching pubs data:', error);
@@ -79,7 +79,7 @@ const PubsMap: React.FC = () => {
     // Fetch user info (e.g., username) from the server
     const fetchUserInfo = async () => {
         try {
-            const response = await Axios.get('https://itinerarease.xyz/api/user-info-api');
+            const response = await Axios.get('user-info-api/');
             setUser(response.data); // Set user data to state
         } catch (error) {
             console.error('Error fetching user information:', error);
@@ -89,7 +89,7 @@ const PubsMap: React.FC = () => {
     // Log the user out and redirect to the login page
     const handleLogout = async () => {
         try {
-            await Axios.post("https://itinerarease.xyz/api/logout/");
+            await Axios.post("logout/");
             localStorage.removeItem("token");
             navigate("/login");
         } catch (error) {

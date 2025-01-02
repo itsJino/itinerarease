@@ -15,7 +15,7 @@ const PrivateRoute: React.FC<{ children: ReactNode }> = ({ children }) => {
         return;
       }
       try {
-        await Axios.get('https://itinerarease.xyz/api/user-info-api/'); // API to verify user session
+        await Axios.get('user-info-api/'); // API to verify user session
         // await Axios.get('/user-info-api/'); // API to verify user session
         setIsAuthenticated(true);
       } catch (err) {

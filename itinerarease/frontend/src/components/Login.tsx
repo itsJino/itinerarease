@@ -12,7 +12,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await Axios.post('https://itinerarease.xyz/api/login/', { username, password });
+      const response = await Axios.post('login/', { username, password });
       // const response = await Axios.post('/login/', { username, password });
       const token = response.data.token;
       localStorage.setItem('token', token);
