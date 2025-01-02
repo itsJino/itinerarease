@@ -1,0 +1,9 @@
+django
+gdal
+pyproj
+psycopg2
+whitenoise
+python-dotenv
+djangorestframework
+django-cors-headers
+requests
