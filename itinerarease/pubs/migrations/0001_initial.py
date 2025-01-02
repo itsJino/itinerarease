@@ -18,7 +18,10 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255)),
                 ('longitude', models.FloatField()),
                 ('latitude', models.FloatField()),
-                ('region', models.CharField(max_length=50)),
+                ('address_1', models.CharField(max_length=255, blank=True, null=True)),
+                ('address_2', models.CharField(max_length=255, blank=True, null=True)),
+                ('address_3', models.CharField(max_length=255, blank=True, null=True)),
+                ('county', models.CharField(max_length=100, blank=True, null=True)),
             ],
         ),
     ]

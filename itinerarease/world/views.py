@@ -18,21 +18,6 @@ def set_user_location(user_id, latitude, longitude):
 
     return profile
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('index')  # Redirect to the main map view
-    else:
-        form = AuthenticationForm()
-    return render(request, 'world/login.html', {'form': form})
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')  # Redirect to the login page after logout
-
 def map_view(request):
     if request.user.is_authenticated:
         try:

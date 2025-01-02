@@ -19,7 +19,10 @@ class Command(BaseCommand):
                     name=row['name'],
                     longitude=row['long'],
                     latitude=row['lat'],
-                    region=row['region']
+                    address_1=row['address_1'],
+                    address_2=row['address_2'],
+                    address_3=row['address_3'],
+                    county=row['county']
                 ) for row in reader
             ]
             PublicPlace.objects.bulk_create(places, ignore_conflicts=True)

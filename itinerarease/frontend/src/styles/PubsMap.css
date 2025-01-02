@@ -1,0 +1,359 @@
+/* General resets */
+body,
+html,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    /* Prevent scrolling */
+}
+
+/* Web header styles */
+.web-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.left-container,
+.center-container,
+.right-container {
+    display: flex;
+    align-items: center;
+}
+
+.app-title {
+    margin: 0;
+    font-size: 24px;
+    text-align: center;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.profile-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.username {
+    color: #333;
+    font-weight: 500;
+}
+
+.web-header button {
+    background-color: white;
+    color: #6FA1EC;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.web-header button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Fullscreen map container */
+.map-container {
+    position: absolute;
+    top: 65px;
+    /* Adjusted for header height */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 65px);
+    /* Take header height into account */
+}
+
+/* Left panel overlay */
+.left-panel {
+    position: absolute;
+    top: 85px;
+    /* Slightly below header */
+    left: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Semi-transparent background */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    z-index: 1000;
+    /* Ensure it stays above the map */
+    overflow-y: auto;
+    max-height: 85%;
+    /* Ensure it doesn’t take up too much space */
+}
+
+.left-panel h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.left-panel input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-results,
+.selected-pubs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-results li,
+.selected-pubs-list li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-results button,
+.selected-pubs-list button {
+    background-color: #6FA1EC;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.search-results button:hover,
+.selected-pubs-list button:hover {
+    background-color: #508ad6;
+}
+
+.create-route-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6FA1EC;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.create-route-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.create-route-button:hover:not(:disabled) {
+    background-color: #508ad6;
+}
+
+/* Progress bar */
+.progress-container {
+    margin-top: 15px;
+}
+
+.progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    width: 100%;
+}
+
+.progress-bar-fill {
+    background-color: #6FA1EC;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+
+    body,
+    html,
+    #root {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .web-header {
+        flex: 0 0 auto;
+        /* Prevent stretching */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px 15px;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+        font-size: 0.9rem;
+        /* Compact header */
+    }
+
+    .app-title {
+        font-size: 1rem;
+        margin: 0;
+        text-align: center;
+        flex: 1;
+        /* Center title between logout and profile */
+    }
+
+    .logout-button {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+
+    .user-profile {
+        font-size: 0.8rem;
+        gap: 5px;
+    }
+
+    .profile-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+    }
+
+    .map-container {
+        flex: 1;
+        /* Take up all available space */
+        width: 100%;
+        height: auto;
+        /* Adjust dynamically */
+        position: relative;
+        /* Keeps it interactive */
+        top: 0;
+    }
+
+    .left-panel {
+        position: relative;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        max-height: 40%;
+        /* Limit panel height */
+        background-color: rgba(255, 255, 255, 0.95);
+        /* Semi-transparent */
+        padding: 10px 15px;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        /* Shadow at the top */
+        border-radius: 12px 12px 0 0;
+        /* Rounded top corners */
+        z-index: 1000;
+        /* Ensure it's above the map */
+        overflow-y: auto;
+        /* Allow scrolling if content exceeds height */
+    }
+
+    .left-panel h2 {
+        font-size: 1.4em;
+        margin-bottom: 8px;
+        color: #333;
+        text-align: center;
+        margin-top: -4px;
+    }
+
+    .left-panel input {
+        font-size: 0.9rem;
+        padding: 8px;
+        margin-bottom: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .search-results,
+    .selected-pubs-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-height: 100px;
+        /* Scrollable if too many items */
+        overflow-y: auto;
+    }
+
+    .search-results li,
+    .selected-pubs-list li {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .search-results button,
+    .selected-pubs-list button {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+    .create-route-button {
+        font-size: 0.9rem;
+        padding: 10px;
+        margin-top: 15px;
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+    }
+
+    .create-route-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .progress-container {
+        margin-top: 15px;
+    }
+
+    .progress-bar {
+        height: 10px;
+        border-radius: 5px;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        border-radius: 5px 0 0 5px;
+        transition: width 0.3s ease;
+    }
+}

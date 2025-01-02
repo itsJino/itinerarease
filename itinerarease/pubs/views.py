@@ -16,7 +16,9 @@ def pubs_data(request):
                 'name': pub.name,
                 'latitude': pub.latitude,
                 'longitude': pub.longitude,
-                'region': pub.region,
+                'address_1': pub.address_1,
+                'address_2': pub.address_2,
+                'address_3': pub.address_3,
             }
             for pub in pubs
         ]

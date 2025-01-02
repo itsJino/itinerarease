@@ -1,4 +1,8 @@
 from django.contrib.gis import admin
 from .models import PublicPlace
 
-admin.site.register(PublicPlace, admin.GISModelAdmin)
+@admin.register(PublicPlace)
+class PublicPlaceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'latitude', 'longitude', 'address_1', 'address_2', 'address_3', 'county')
+    
+    

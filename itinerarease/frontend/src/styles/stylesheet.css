@@ -1,0 +1,499 @@
+/* Login and Signup Page Styles */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.auth-form {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.auth-form h2 .highlight {
+    color: #4caf50;
+}
+
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: center;
+    border: 1px solid #d9534f;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+    background-color: #45a049;
+}
+
+.redirect-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.redirect-link a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.redirect-link a:hover {
+    text-decoration: underline;
+}
+
+/* Map Page Styles */
+
+/* Navbar styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar div {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.navbar button {
+    background-color: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.navbar button:hover {
+    background-color: #dc2626;
+    transform: scale(1.05);
+}
+
+/* Modern Search Bar */
+.search-bar {
+    margin: 10px 20px;
+    padding: 12px 16px;
+    width: calc(100% - 40px);
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    background: #f0f2f5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    background: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid #4caf50;
+}
+
+.search-bar::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.search-bar-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.search-bar-wrapper input {
+    width: 100%;
+    padding-left: 40px;
+}
+
+.search-bar-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #4caf50;
+}
+
+/* Map container styling */
+.map-container {
+    height: 80vh;
+    min-height: 400px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.popup-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.popup-button:hover {
+    background-color: #45a049;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+#map {
+    height: 80vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+#root,
+#app {
+    height: 100%;
+}
+
+.container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.map-container {
+    height: 80vh;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 70vh;
+    }
+
+    .search-bar {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+}
+
+/* Bookmark Feature Styles */
+
+.bookmark-filter {
+    display: flex;
+    align-items: center;
+    margin: 10px 20px;
+    font-size: 1rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.bookmark-filter input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4caf50;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.bookmark-filter input[type="checkbox"]:checked {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    position: relative;
+}
+
+.bookmark-filter input[type="checkbox"]:checked::after {
+    content: '✔';
+    font-size: 14px;
+    color: #fff;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+}
+
+.bookmark-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.bookmark-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.bookmarked-popup {
+    background-color: #f0fff4;
+    border: 1px solid #4caf50;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.route-button {
+    padding: 8px 12px;
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.route-button:hover {
+    background-color: #1976d2;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+
+    .bookmark-button,
+    .route-button {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}
+
+.leaflet-popup {
+    z-index: 9999 !important;
+}
+
+.leaflet-popup-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    gap: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px 20px;
+}
+
+.subcategory-filter {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.subcategory-filter:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+.bookmark-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.bookmark-filter input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4caf50;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.bookmark-filter input[type="checkbox"]:checked {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.bookmark-filter input[type="checkbox"]:checked::after {
+    content: '✔';
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .subcategory-filter {
+        width: 100%;
+    }
+}
+
+.closest-hospital-btn {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #227d0e 0%, #31d55f 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.closest-hospital-btn:hover {
+    background: linear-gradient(135deg, #227d0e 0%, #31d55f 100%);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.marker-cluster {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.marker-cluster div {
+    background-color: rgba(76, 175, 80, 0.9);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.marker-cluster span {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(3, 169, 244, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.marker-cluster:hover {
+    transform: scale(1.1);
+}
+
+.leaflet-marker-icon {
+    transition: transform 0.3s ease-in-out;
+}

@@ -6,8 +6,11 @@ class PublicPlace(models.Model):
     name = models.CharField(max_length=255)
     longitude = models.FloatField()
     latitude = models.FloatField()
-    region = models.CharField(max_length=50)
-
+    address_1 = models.CharField(max_length=255, null=True, blank=True)
+    address_2 = models.CharField(max_length=255, null=True, blank=True)
+    address_3 = models.CharField(max_length=255, null=True, blank=True)
+    county = models.CharField(max_length=100, null=True, blank=True)
+    
     def __str__(self):
         return self.name
     

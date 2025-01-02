@@ -41,16 +41,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'rest_framework',
+    'corsheaders',
+    'knox',
     'world.apps.WorldConfig',
     'pubs.apps.PubsConfig',
+    'api.apps.ApiConfig',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ALL_ORIGINS = True
+
 MIDDLEWARE = [
+    'itinerarease.middleware.TestCORSMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -89,6 +99,24 @@ DATABASES = {
         'PASSWORD': 'docker',
         'PORT': '5432'
     }
+}
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000', # Frontend origin
+    'http://localhost:8001',
+    'http://localhost:5173',
+]
+
+
+# REST Framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'knox.auth.TokenAuthentication',  # Knox token authentication
+        'rest_framework.authentication.BasicAuthentication',  # Optional
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Require authentication by default
+    ],
 }
 
 
@@ -139,32 +167,24 @@ else:
 
 
 if DEPLOY_SECURE:
-
     DEBUG = False
-
     TEMPLATES[0]["OPTIONS"]["debug"] = False
 
-    # Allow only specified hosts in production
+    # Production-specific settings
     ALLOWED_HOSTS = ['*.itinerarease.xyz', 'itinerarease.xyz', 'localhost', '127.0.0.1']
+
+    CORS_ALLOWED_ORIGINS = ['https://itinerarease.xyz']
     
-
-    CSRF_COOKIE_SECURE = True
-
-    SESSION_COOKIE_SECURE = True
-    # Specify trusted origin for CSRF checks
     CSRF_TRUSTED_ORIGINS = ['https://itinerarease.xyz']
 else:
-
     DEBUG = True
-
     TEMPLATES[0]["OPTIONS"]["debug"] = True
 
-    # Allow all hosts in development
+    # Development-specific settings
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
-    CSRF_COOKIE_SECURE = False
-
-    SESSION_COOKIE_SECURE = False
+    # Allow all origins during development
+    CORS_ALLOWED_ALL_ORIGINS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
